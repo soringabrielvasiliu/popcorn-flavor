@@ -20,7 +20,7 @@ public class MoviesController {
   
   @RequestMapping(value="/homepage", method = RequestMethod.GET)
   public String index(ModelMap modelMap) {
-    modelMap.put("listMovies", mm.findAll());
+	    modelMap.put("listMovies", mm.getMovies());
     return "homepage";
   }
 

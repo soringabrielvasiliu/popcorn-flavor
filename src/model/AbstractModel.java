@@ -43,7 +43,7 @@ public abstract class AbstractModel<T> {
         cfg.configure("hibernate.cfg.xml");
         factory = cfg.buildSessionFactory();
         Session s = factory.openSession();
-            Query query = s.createQuery("from Movie where title = :title");
+            Query query = s.createQuery("from Movie where title LIKE CONCAT('%', :title, '%')");
       query.setParameter("title", name);
       List<Movie> list = (List<Movie>)query.list();
 //      for (Movie m : list) {
