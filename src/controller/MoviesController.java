@@ -20,7 +20,7 @@ public class MoviesController {
   
   @RequestMapping(value="/homepage", method = RequestMethod.GET)
   public String index(ModelMap modelMap) {
-    modelMap.put("listMovies", mm.findAll());
+    modelMap.put("listMovies", mm.find().limit(1));
     return "homepage";
   }
 
@@ -30,13 +30,13 @@ public class MoviesController {
     listMovies = mm.getMovieDetail(searchName);
     if( listMovies != null) {
       modelMap.addAttribute(listMovies);
-      modelMap.addAttribute("message", listMovies);
+      modelMap.addAttribute("searchResults", listMovies);
       modelMap.put("listMovies", mm.findAll());
       return listMovies;
     }
     else
     {
-      modelMap.put("message", "No result");
+      modelMap.put("searchResults", "No result");
       System.out.println("No result");
       return null;
     }
