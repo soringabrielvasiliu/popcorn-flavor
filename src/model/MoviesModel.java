@@ -23,7 +23,7 @@ public class MoviesModel extends AbstractModel<Movie> {
 			cfg.configure("hibernate.cfg.xml");
 			factory = cfg.buildSessionFactory();
 			Session s = factory.openSession();
-			Query query = s.createQuery("from Movie").setMaxResults(10);
+			Query query = s.createQuery("from Movie").setMaxResults(1000);
 			
 			@SuppressWarnings("unchecked")
 			List<Movie> list = (List<Movie>)query.list();
