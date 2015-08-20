@@ -11,8 +11,8 @@ import entities.Movie;
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractModel<T> {
-  
-  private static SessionFactory factory;
+	
+	private static SessionFactory factory;
     private Class<T> entityClass;
     protected final SessionFactory sessionFactory = HibernateUtil
             .getSessionFactory();
@@ -29,59 +29,58 @@ public abstract class AbstractModel<T> {
             if (!sessionFactory.getCurrentSession().getTransaction().isActive())
                 sessionFactory.getCurrentSession().getTransaction().begin();            
             return sessionFactory.getCurrentSession()
-                    .createQuery("from " + entityClass.getName()).list();
+                    .createQuery("from " + entityClass.getName() + " where idMovie < 20").list();
         } catch (RuntimeException re) {
             return null;
         }
     }
 
     @SuppressWarnings("deprecation")
-  public List<Movie> getMovieDetail(String name) {
-//      Transaction tx = null;
+	public List<Movie> getMovieDetail(String name) {
+//    	Transaction tx = null;
         try {
-          Configuration cfg = new Configuration();
-        cfg.configure("hibernate.cfg.xml");
-        factory = cfg.buildSessionFactory();
-        Session s = factory.openSession();
-            Query query = s.createQuery("from Movie where title LIKE CONCAT('%', :title, '%')");
-      query.setParameter("title", name);
-      List<Movie> list = (List<Movie>)query.list();
-//      for (Movie m : list) {
-//        System.out.println(m.getIdMovie() + "\t" + m.getTitle() + "\t"
-//            + m.getType() + "\t" + m.getEndYear() + "\t"
-//            + m.getPlot());
-//      }
-      s.close();
-      return list;
-        
+        	Configuration cfg = new Configuration();
+    		cfg.configure("hibernate.cfg.xml");
+    		factory = cfg.buildSessionFactory();
+    		Session s = factory.openSession();
+            Query query = s.createQuery("from Movie where title = :title");
+			query.setParameter("title", name);
+			List<Movie> list = (List<Movie>)query.list();
+//			for (Movie m : list) {
+//				System.out.println(m.getIdMovie() + "\t" + m.getTitle() + "\t"
+//						+ m.getType() + "\t" + m.getEndYear() + "\t"
+//						+ m.getPlot());
+//			}
+			s.close();
+			return list;
         } catch (RuntimeException re) {
             return null;
         }
     }
     
     @SuppressWarnings("deprecation")
-  public List<Actor> getActorDetail(String name) {
-//      Transaction tx = null;
-      try {
-        Configuration cfg = new Configuration();
-        cfg.configure("hibernate.cfg.xml");
-        factory = cfg.buildSessionFactory();
-        Session s = factory.openSession();
-          Query query = s.createQuery("from Actor where firstName = :firstName");
-          query.setParameter("firstName", name);
-          List<Actor> list = (List<Actor>)query.list();
-//      for (Actor a : list) {
-//        System.out.println(a.getIdActor() + "\t" + a.getFirstName()
-//            + "\t" + a.getLastName() + "\t" + a.getNickname()
-//            + "\t" + a.getDateBirth() + "\t" + a.getDateDeath()
-//            + "\t" + a.getBiography() + "\t" + a.getHeight());
-//      }
-          s.close();
-          return list;
-          
-    } catch (RuntimeException re) {
-      return null;
-    }   
+	public List<Actor> getActorDetail(String name) {
+//    	Transaction tx = null;
+    	try {
+    		Configuration cfg = new Configuration();
+    		cfg.configure("hibernate.cfg.xml");
+    		factory = cfg.buildSessionFactory();
+    		Session s = factory.openSession();
+        	Query query = s.createQuery("from Actor where firstName = :firstName");
+        	query.setParameter("firstName", name);
+        	List<Actor> list = (List<Actor>)query.list();
+//			for (Actor a : list) {
+//				System.out.println(a.getIdActor() + "\t" + a.getFirstName()
+//						+ "\t" + a.getLastName() + "\t" + a.getNickname()
+//						+ "\t" + a.getDateBirth() + "\t" + a.getDateDeath()
+//						+ "\t" + a.getBiography() + "\t" + a.getHeight());
+//			}
+        	s.close();
+        	return list;
+        	
+		} catch (RuntimeException re) {
+			return null;
+		}  	
     }
 
     
