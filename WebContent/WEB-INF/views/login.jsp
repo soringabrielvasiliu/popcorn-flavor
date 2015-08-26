@@ -6,9 +6,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Popcorn Flavor</title>
-		<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<title>Popcorn Flavor | Login</title>
+		<link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">
+		<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css">
 	</head>
 	
 	<body>
@@ -29,7 +30,21 @@
 			                    <input type="checkbox" value="remember-me">
 			                    Remember me
 			                </label>
-			                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+			                <a href="${pageContext.request.contextPath}/account/forgotPassword.html"" class="pull-right need-help">Forgot your password?</a><span class="clearfix"></span>
+	                        <div id="OR" class="hidden-xs">
+	                            OR</div>
+	                        <div class="row text-center sign-with">
+                            <div class="col-md-12">
+                                <h3 class="other-nw">
+                                    Sign in with</h3>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="btn-group btn-group-justified">
+                                    <a href="#" class="btn btn-primary">Facebook</a> <a href="#" class="btn btn-danger">
+                                        Google +</a>
+                                </div>
+                            </div>
+                        </div>
 						</s:form>
 		            </div>
 		            <a href="#" class="text-center new-account">Create an account </a>

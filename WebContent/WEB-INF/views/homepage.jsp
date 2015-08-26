@@ -35,6 +35,7 @@
     <div class="container" id="container">
         <div class="row">
         <a href="${pageContext.request.contextPath}/account/logout.html" class="pull-right new-account">Logout</a>
+        <a href="${pageContext.request.contextPath}/account/profile.html" class="pull-right new-account">Profile</a>
           <span class="pull-right login-title custom-username-span">${sessionScope.username}</span>
           <br><br>
         <h1 class="text-center">Welcome to <i>PopcornFlavor</i></h1>

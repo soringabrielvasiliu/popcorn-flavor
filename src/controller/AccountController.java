@@ -10,25 +10,28 @@ import entities.*;
 import model.*;
 
 @Controller("/account")
-@RequestMapping
+@RequestMapping(value = "account")
 public class AccountController {
 
+	public static StringBuffer username = null;
+
 	private AccountModel accountModel = new AccountModel();
-	
-	@RequestMapping(value="/login", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(ModelMap modelMap) {
 		modelMap.put("u", new User());
 		return "login";
 	}
-	
-	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute(value="u")User u, ModelMap modelMap, HttpSession session) {
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@ModelAttribute(value = "u") User u, ModelMap modelMap,
+			HttpSession session) {
+		System.out.println(u.getUsername() + "\t" + u.getPassword());
 		if (accountModel.login(u.getUsername(), u.getPassword()) != null) {
 			session.setAttribute("username", u.getUsername());
+			username = new StringBuffer(u.getUsername());
 			return "redirect:/homepage.html";
-		}
-		else
-		{
+		} else {
 			modelMap.put("message", "Account's Invalid");
 			return "login";
 		}
@@ -40,26 +43,47 @@ public class AccountController {
 		return "redirect:login.html";
 	}
 	
-	@RequestMapping(value="/register", method = RequestMethod.POST)
-	public String register(@ModelAttribute(value="u")User u, ModelMap modelMap, HttpSession session) {
-		int result;
-		result = accountModel.register(u.getUsername(), u.getFirstName(), u.getLastName(), u.getPassword(), u.getGenre(), u.getMail());
-		if (result != -1) {
-			System.out.println(result);
-			if (result == 0) {
-				session.setAttribute("username", u.getUsername());
-				modelMap.addAttribute("message",
-						"Congrats!! You are registered");
-				return "redirect:/homepage.html";
-			}
-			if (result == 1) {
-				modelMap.addAttribute("message", "Username already existant");
-			}
-			if (result == 2) {
-				modelMap.addAttribute("message", "Email already existant");
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public String profile(ModelMap modelMap) {
+		if (username != null) {
+			User u = accountModel.profile(username);
+			System.out.println(u.getIdUser() + "\t" + u.getUsername() + "\t"
+					+ u.getFirstName() + "\t" + u.getLastName() + "\t"
+					+ u.getGenre() + "\t" + u.getMail() + "\t"
+					+ u.getPassword());
+			modelMap.addAttribute("u", u);
+		} else
+			return "redirect:/account/login.html";
+
+		return "profile";
+	}
+
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
+	public String profile(@ModelAttribute(value = "u") User u,
+			ModelMap modelMap, HttpSession session) {
+		if (username != null) {
+			if (accountModel.updateProfile(u, username) != null) {
+				System.out.println("job done");
+				return "redirect:/account/profile.html";
 			}
 		}
-		return "redirect:/register.html";
+		else
+			return "redirect:/account/login.html";
+		return "profile";
+	}
+	
+	@RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
+	public String forgotPassword(ModelMap modelMap) {
+		return "forgotPassword";
+	}
+	
+	@RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
+	public String  forgotPassword(@ModelAttribute(value = "email") String email,
+			ModelMap modelMap, HttpSession session) {
+			System.out.println(email);
+			accountModel.sendRecoveryEmail(email);
+			return "redirect:/account/login.html";
+	
 	}
 		
 }
