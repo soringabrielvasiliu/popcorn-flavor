@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import entities.*;
 import model.*;
 
-@Controller
-@RequestMapping(value="account")
+@Controller("/account")
+@RequestMapping
 public class AccountController {
 
 	private AccountModel accountModel = new AccountModel();
-	//private RegisterModel registerModel = new RegisterModel();
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(ModelMap modelMap) {
@@ -41,26 +40,26 @@ public class AccountController {
 		return "redirect:login.html";
 	}
 	
-//	@RequestMapping(value = "/register", method = RequestMethod.POST)
-//	public String register(@ModelAttribute(value="u")User u, ModelMap modelMap, HttpSession session) {
-//		int result;
-//		result = accountModel.register(u.getUsername(), u.getFirstName(), u.getLastName(), u.getPassword(), u.getGenre(), u.getMail());
-//		if (result != -1) {
-//			System.out.println(result);
-//			if (result == 0) {
-//				session.setAttribute("username", u.getUsername());
-//				modelMap.addAttribute("message",
-//						"Congrats!! You are registered");
-//				return "redirect:/homepage.html";
-//			}
-//			if (result == 1) {
-//				modelMap.addAttribute("message", "Username already existant");
-//			}
-//			if (result == 2) {
-//				modelMap.addAttribute("message", "Email already existant");
-//			}
-//		}
-//		return "redirect:register.html";
-//	}
+	@RequestMapping(value="/register", method = RequestMethod.POST)
+	public String register(@ModelAttribute(value="u")User u, ModelMap modelMap, HttpSession session) {
+		int result;
+		result = accountModel.register(u.getUsername(), u.getFirstName(), u.getLastName(), u.getPassword(), u.getGenre(), u.getMail());
+		if (result != -1) {
+			System.out.println(result);
+			if (result == 0) {
+				session.setAttribute("username", u.getUsername());
+				modelMap.addAttribute("message",
+						"Congrats!! You are registered");
+				return "redirect:/homepage.html";
+			}
+			if (result == 1) {
+				modelMap.addAttribute("message", "Username already existant");
+			}
+			if (result == 2) {
+				modelMap.addAttribute("message", "Email already existant");
+			}
+		}
+		return "redirect:/register.html";
+	}
 		
 }

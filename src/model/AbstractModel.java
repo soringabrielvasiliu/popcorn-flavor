@@ -29,7 +29,7 @@ public abstract class AbstractModel<T> {
             if (!sessionFactory.getCurrentSession().getTransaction().isActive())
                 sessionFactory.getCurrentSession().getTransaction().begin();            
             return sessionFactory.getCurrentSession()
-                    .createQuery("from " + entityClass.getName() + " where idMovie < 20").list();
+                    .createQuery("from " + entityClass.getName()).list();
         } catch (RuntimeException re) {
             return null;
         }

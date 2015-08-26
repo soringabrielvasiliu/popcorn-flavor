@@ -24,24 +24,24 @@
        define an explicit mapping for it.
        -->
        <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-       		<property name="mappings">
-       			<props>
-       				<prop key="index.html">indexController</prop>
-       			</props>
-       		</property>
+         <property name="mappings">
+          <props>
+           <prop key="index.html">indexController</prop>
+          </props>
+         </property>
        </bean>
        
        <!-- Resolves view names -->
        <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-       		<property name="prefix" value="/WEB-INF/views/"></property>
-       		<property name="suffix" value=".jsp"></property>
+         <property name="prefix" value="/WEB-INF/views/"></property>
+         <property name="suffix" value=".jsp"></property>
        </bean>
        
        <!--
        The index controller.
        -->
        <bean name="indexController" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-       		<property name="viewName" value="index"></property>
+         <property name="viewName" value="index"></property>
        </bean>
 
 </beans>

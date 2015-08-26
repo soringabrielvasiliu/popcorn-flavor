@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<spring:form method="post" commandName="mv" action="../editMovie.html">
+	<spring:form method="post" commandName="mv" >
 		<table border="0" cellpadding="2" cellspacing="2">
 			<tr>
 				<td>ID Movie</td>
