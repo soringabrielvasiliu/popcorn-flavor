@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+  <jsp:include page="header.jsp" />
 <section class='profile-main-wrapper'>
 
 	<section class="profile-info">

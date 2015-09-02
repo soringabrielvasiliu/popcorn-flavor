@@ -7,49 +7,41 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Popcorn Flavor | Login</title>
-		<link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">
-		<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css">
 	</head>
 	
 	<body>
-		<div class="container">
-	    	<div class="row">
-	        	<div class="col-sm-6 col-md-4 col-md-offset-4">
-	        		<h1 class="text-center login-title">Sign in to continue to Homepage</h1>
-	            	<div class="account-wall">
-		            	<c:set var="var1" value="${message}"/>
-		            	<c:if test="${message != null}">
-		            		<div class="alert alert-danger col-md-10 col-md-offset-1">${message}</div>
-		            	</c:if>
-						<s:form method="post" commandName="u" class="form-signin">
-							<s:input path="username" class="form-control" placeholder="Username" />
-							<s:password path="password" class="form-control" placeholder="Password" />
-							<input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in" />
-							<label class="checkbox pull-left">
-			                    <input type="checkbox" value="remember-me">
-			                    Remember me
-			                </label>
-			                <a href="${pageContext.request.contextPath}/account/forgotPassword.html"" class="pull-right need-help">Forgot your password?</a><span class="clearfix"></span>
-	                        <div id="OR" class="hidden-xs">
-	                            OR</div>
-	                        <div class="row text-center sign-with">
-                            <div class="col-md-12">
-                                <h3 class="other-nw">
-                                    Sign in with</h3>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="btn-group btn-group-justified">
-                                    <a href="#" class="btn btn-primary">Facebook</a> <a href="#" class="btn btn-danger">
-                                        Google +</a>
-                                </div>
-                            </div>
-                        </div>
-						</s:form>
-		            </div>
-		            <a href="#" class="text-center new-account">Create an account </a>
-	    	    </div>
-		    </div>
-		</div>
+	<jsp:include page="header.jsp" />
+	
+	
+<span class="connection_container">
+<div class="main_login">
+      <h1>Sign in to PopcornFlavor</h1>
+      <div class="login_wrapper">
+      
+	  <c:set var="var1" value="${message}"/>
+      <c:if test="${message != null}">
+        <div class="alert">${message}</div>
+      </c:if>
+      
+        <s:form class="login_form" method="post" commandName="u">
+          <s:input class="login_field" path="username" placeholder="Username" />
+          <s:password class="login_field" path="password" placeholder="Password" />
+          <input class="login_button" type="submit" value="Sign in" />
+        </s:form>
+        <div class="remember_forgot">
+          <label class="remember_me_checkbox">
+            <input type="checkbox" value="remember-me">
+              Remember me
+          </label>
+          <a href="${pageContext.request.contextPath}/account/forgotPassword.html">Forgot your password?</a>
+        </div>      
+      </div>
+</div>
+</span>
+		
+		
+	<jsp:include page="footer.jsp" />	
 	</body>
 </html>
