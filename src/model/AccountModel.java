@@ -14,17 +14,20 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
 import java.util.Properties;
 
 import entities.*;
 
 public class AccountModel extends AbstractModel<User> {
 	private static SessionFactory factory;
+	private Session session;
 	
 	public AccountModel() {
 		super(User.class);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public User login(String username, String password) {
 		try {
 			Configuration cfg = new Configuration();
@@ -44,54 +47,10 @@ public class AccountModel extends AbstractModel<User> {
 		}
 	}
 	
-//	public int register(String username, String firstName, String lastName,
-//			String password, String genre, String mail) {
-//		int noEmail;
-//		try {
-//			if (!sessionFactory.getCurrentSession().getTransaction().isActive())
-//                sessionFactory.getCurrentSession().getTransaction().begin(); 
-//			Query verifyUsername = sessionFactory.getCurrentSession().createQuery("SELECT COUNT(username) FROM user where username= :username");
-//			verifyUsername.setString("username", username);	
-//			int noUser = verifyUsername.getFetchSize();
-//			
-//			System.out.println(noUser );
-//			if (noUser == 0) {
-//				Query verifyEmail = sessionFactory.getCurrentSession().createQuery("SELECT COUNT(username) FROM user where username= :username");
-//				verifyUsername.setString("username", username);	
-//				noEmail = verifyEmail.getFetchSize();
-//			
-//				if (noEmail == 0) {
-//					Transaction tx = null;
-//					Session session = factory.openSession();
-//					tx = ((SharedSessionContract) sessionFactory).beginTransaction();
-//					Query query = sessionFactory
-//							.getCurrentSession()
-//							.createQuery(
-//									"insert into user(username, firstName, lastName, password, genre, mail)"
-//											+ "values(username, firstName, lastName, password, genre, mail)");
-//
-//					query.setString("username", username);
-//					query.setString("firstName", firstName);
-//					query.setString("lastName", lastName);
-//					query.setString("password", password);
-//					query.setString("genre", genre);
-//					query.setString("mail", mail);
-//					tx.commit();
-//					return 2;
-//				} else {
-//					return 0;
-//				}
-//			}
-//			
-//			return 1;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			System.out.println(e.getMessage());
-//			return -1;
-//		}
-//	}
 	
-	public User profile(String username) {
+	
+	@SuppressWarnings("deprecation")
+	public User profile(StringBuffer username) {
 		try {
 
 			Configuration cfg = new Configuration();
@@ -110,7 +69,8 @@ public class AccountModel extends AbstractModel<User> {
 		}
 	}
 	
-	public String updateProfile(User u, String username) {
+	@SuppressWarnings("deprecation")
+	public String updateProfile(User u, StringBuffer username) {
 		try {
 			Configuration cfg = new Configuration();
 			cfg.configure("hibernate.cfg.xml");
@@ -126,7 +86,7 @@ public class AccountModel extends AbstractModel<User> {
 					query.setParameter("firstName", u.getFirstName());
 					query.setParameter("lastName", u.getLastName());
 					query.setParameter("username", username.toString());
-					int result = query.executeUpdate();
+					query.executeUpdate();
 					tx.commit();
 				} else {
 					Query query = session
@@ -135,7 +95,7 @@ public class AccountModel extends AbstractModel<User> {
 					query.setParameter("lastName", u.getLastName());
 					query.setParameter("password", u.getPassword());
 					query.setParameter("username", username.toString());
-					int result = query.executeUpdate();
+					query.executeUpdate();
 					tx.commit();
 				}
 			} catch (HibernateException e) {
@@ -192,6 +152,14 @@ public class AccountModel extends AbstractModel<User> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
 	}
 	
 	

@@ -2,4 +2,4 @@ PopcornFlavorSpring/src/hibernate.cfg.xml
 PopcornFlavorSpring/.classpath
 .classpath
 PopcornFlavorSpring/build/*.class
-
+PopcornFlavorSpring/WebContent/WEB-INF/lib/*.jar

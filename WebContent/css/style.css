@@ -26,14 +26,13 @@ body .connection_container .login_wrapper {
   width: 35%;
   background-color: #63C6AE;
   font-family: Geneva;
-  border: 3px solid #282828;
   border-radius: 10px;
   margin-bottom: 20px;
   margin: 0 auto;
   padding: 20px;
 }
 body .connection_container .login_wrapper .login_form {
-  height: 60%;
+  height: 50%;
   width: 60%;
   margin: 0 auto;
   margin-top: 50px;
@@ -48,7 +47,6 @@ body .connection_container .login_wrapper .login_field {
   background-color: #d9d9d9;
   font-size: 140%;
   padding: 8px 15px;
-  border: 2px solid #282828;
   border-radius: 10px;
   margin-bottom: 20px;
   box-sizing: border-box;
@@ -60,7 +58,6 @@ body .connection_container .login_wrapper .login_button {
   color: #282828;
   font-size: 140%;
   font-family: Geneva;
-  border: 2px solid #282828;
   border-radius: 10px;
   cursor: pointer;
   margin: 0 auto;
@@ -81,6 +78,18 @@ body .connection_container .login_wrapper .remember_forgot a {
   color: #282828;
   font-family: Geneva;
   font-size: 20px;
+}
+body .connection_container .login_wrapper .remember_forgot p {
+  display: block;
+  text-decoration: none;
+  color: #FF0000;
+  font-family: Geneva;
+  font-size: 20px;
+}
+body .profile-main-wrapper {
+  position: relative;
+  top: 100px;
+  margin-top: 150px;
 }
 footer {
   width: 100%;

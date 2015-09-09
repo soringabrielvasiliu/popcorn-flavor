@@ -40,8 +40,8 @@
 				</c:choose>				
 			</div>
 			
-			<form class="search-bar" method="post" commandName="search-form">
-  			         <input class="search" type="text"  placeholder="Find Movies, TV Shows and Actors"/>
+			<form class="search-bar"  action="${pageContext.request.contextPath}/find.html" method="post" commandName="search-form" >
+  			         <input class="search" type="text"  placeholder="Find Movies, TV Shows and Actors" name="searchName"/>
   			         <input class="button" type="submit" value="Search">
   			</form>
   			
@@ -106,7 +106,13 @@
 			<c:if test="${mv.biography != null}">
 			<p class="bio">${mv.biography}</p>
 			</c:if>
-						
+			
+			<div class="hisWork" modelAttribute="otherMovies">
+				<c:forEach var="m" items="${otherMovies}">
+          	 	<p> <a href="${pageContext.request.contextPath}/movie/${m.idMovie}.html" > ${m.title} </a> </p>
+          	 	<p><b>Role: </b> ${m.role} <b> Year:</b> ${m.year} </p> 
+    	</c:forEach>
+			</div>			
 		</div>	
 	</span>
 </body>

@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Popcorn Flavor | Login</title>
+		<title>PopcornFlavor | Login</title>
 		<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">
 	</head>
@@ -18,26 +18,24 @@
 <span class="connection_container">
 <div class="main_login">
       <h1>Sign in to PopcornFlavor</h1>
-      <div class="login_wrapper">
-      
-	  <c:set var="var1" value="${message}"/>
-      <c:if test="${message != null}">
-        <div class="alert">${message}</div>
-      </c:if>
-      
+      <div class="login_wrapper">     
         <s:form class="login_form" method="post" commandName="u">
           <s:input class="login_field" path="username" placeholder="Username" />
           <s:password class="login_field" path="password" placeholder="Password" />
           <input class="login_button" type="submit" value="Sign in" />
         </s:form>
         <div class="remember_forgot">
-          <label class="remember_me_checkbox">
-            <input type="checkbox" value="remember-me">
-              Remember me
-          </label>
-          <a href="${pageContext.request.contextPath}/account/forgotPassword.html">Forgot your password?</a>
+        	<c:set var="var1" value="${message}"/>
+      			<c:if test="${message != null}">
+        			<p class="alert">${message}</p>
+      			</c:if>
+          	<label class="remember_me_checkbox">
+            	<input type="checkbox" value="remember-me">
+              	Remember me
+          	</label>
+          	<a href="${pageContext.request.contextPath}/account/forgotPassword.html">Forgot your password?</a>
         </div>      
-      </div>
+      </div>     
 </div>
 </span>
 		

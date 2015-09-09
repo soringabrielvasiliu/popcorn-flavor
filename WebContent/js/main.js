@@ -1,6 +1,8 @@
 $(document).ready(function(){
-  $('.bxslider').bxSlider({
-  	auto: true,
-  	pager: false
-  });
+	$('.bxslider').bxSlider({
+		  pagerCustom: '#bx-pager'
+		});
 });
+
+
+

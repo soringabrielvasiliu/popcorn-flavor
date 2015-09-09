@@ -6,56 +6,86 @@
 <head>
 <link href="${pageContext.request.contextPath}/css/profile.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
+<title>PopcornFlavor | Profile</title>
 </head>
 <body>
-  <jsp:include page="header.jsp" />
-<section class='profile-main-wrapper'>
-
-	<section class="profile-info">
-		
-		 <form   method="get" modelAttribute="u" >
-			<h2>${u.username}</h2>
-			<article>Firstname: ${u.firstName } </article>
-			
-			<article >Lastname: ${u.lastName} </article>
+<span id='profile-container' modelAttribute="u">
+	<div class="header-footer">
+		<div class="logo-picture-and-info">
+			<div class="logout-edit">
+				<a href="${pageContext.request.contextPath}/homepage.html">HOME</a>
+				<a href="${pageContext.request.contextPath}/account/logout.html">LOGOUT</a>
+  				<a href="${pageContext.request.contextPath}/account/edit.html">EDIT PROFILE</a>
+			</div>
+			<a href="${pageContext.request.contextPath}/homepage.html">
+				<img src="${pageContext.request.contextPath}/resources/images/pop3.png" alt="logo"/>
+			</a>
+			<h1>${u.username}</h1>
+			<h2>Firstname: ${u.firstName}</h2>
+			<h2>Lastname: ${u.lastName}</h2>
 			<c:choose>
-			<c:when test="${u.genre eq 'M'}">
-			<article>Gender: Male </article>
-			</c:when>
-			<c:otherwise>
-			<article>Gender: Female </article>
-			</c:otherwise>
+				<c:when test="${u.genre eq 'M'}">
+					<h2>Gender: Male</h2>
+				</c:when>
+				<c:otherwise>
+					<h2>Gender: Female</h2>
+				</c:otherwise>
 			</c:choose>
-			
-			<article>Mail: ${u.mail} </article>
-		</form>
-	</section>
-			
-
-	<section class="edit-profile">
-		<h2>Edit user data </h2>
-		<form class='edit-profile-info-form' method='post' commandName="u">
+			<h2>Mail: ${u.mail}</h2>		
+		</div>
 		
-				<label for='first-name'>First Name: <input type='text' id='first-name' name='firstName' value= "${u.firstName } "  /></label>
-				<label for='last-name'>Last Name: <input type='text' id='last-name' name='lastName' value=" ${u.lastName } " /></label>
-				<label for='password'>New Password: <input type='password' id='password' name='password'   /></label>
-				<label for='repeat-password'>Repeat new password: <input type='password' id='repeat-password' name='repeat_password'/></label>
-				<span id="confirmMessage" class="confirmMessage"></span>
-				
-				<!-- HIDDEN VALUES -->
-				<input type='text' name='hidden_first_name' value= "${u.firstName }" hidden/>
-				<input type='text' name='hidden_last_name' value=" ${u.lastName } "hidden/>
-				<!-- END HIDDEN VALUES -->
-				<input type='submit'\>
-		</form>
-	</section>
+		<form class="search-bar" action="${pageContext.request.contextPath}/find.html" method="post" commandName="search-form">
+ 			         <input class="search" type="text"  placeholder="Find Movies, TV Shows and Actors" name="searchName"/>
+ 			         <input class="button" type="submit" value="Search">
+ 		</form>
+ 			
+ 		<nav class="menu">
+           <ul class="clearfix">     				
+     				<li>
+               <a href="#">MOVIES<span class="arrow">&#9660;</span></a>
+               <ul class="sub-menu">
+                   <li><a href="#">Movies</a></li>
+                   <li><a href="#">TV Series</a></li>
+                   <li><a href="#">Genres</a></li>
+                   <li><a href="#">Video Games</a></li>
+                   <li><a href="#">Coming Soon</a></li>
+               </ul>
+             </li>
+             <li><a href="#">ACTORS</a></li>
+     				<li>
+               <a href="#">POPULAR<span class="arrow">&#9660;</span></a>
+               <ul class="sub-menu">
+                 <li><a href="#">Most Popular</a></li>
+                 <li><a href="#">User Favorites</a></li>
+               </ul>
+             </li>     				
+           </ul>
+         </nav>
+
+ 		<div class="footer-links">
+	        <a href="#">About</a>
+	        <a href="#">Help</a>
+	        <a href="#">Facebook</a>
+	        <a href="#">Twitter</a>
+		</div>
+	</div>	
 	
-
-</section>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>
+	<div class="content-container">
+		<h1 class="title">${u.username}'s Activity</h1> 
+		<h1>Your Ratings</h1>
+		<h2>You haven't rated any movie</h2>
+		<hr>
+		<h1>Your Watchlist</h1>
+		<h2>Your Watchlist is empty</h2>
+		<hr>
+		<h1>Your Latest Comments</h1>
+		<h2>You haven't commented at any movie</h2>
+		<hr>
+		<h1>Recently Viewed</h1>
+		<h2>There is no recent activity on the website</h2>
+	</div>
+</span>
 
 </body>
 </html>
