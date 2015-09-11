@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
 <title>Popcorn Flavor | Movie</title>
-<link href="${pageContext.request.contextPath}/css/actor.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/movie.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<span id="container"  modelAttribute="mv">
@@ -42,6 +42,7 @@
 			</c:if>
 			<c:if test="${mv.totalRating != 0 }">
 			<p> <b> Rating :</b> ${mv.totalRating / mv.totalVoters}  </p>  
+			<p> <b> Total Voters :</b> ${mv.totalVoters}  </p> 
 			</c:if>
 			<c:if test="${mv.plot != null }">
 			<h2> Plot </h2>
@@ -60,6 +61,35 @@
 		<c:forEach var="m" items="${cast}">
           	 <a href="${pageContext.request.contextPath}/actor/${m.idActor}.html" >  <p>${m.firstName} ${m.lastName} ${m.role}</p> </a>
     	</c:forEach>
+    		<c:choose>
+				<c:when test="${sessionScope.username != null}">
+				
+		    	<div class="rating-and-comment">
+					<form method ="post" commandName="yourComment" >
+						<label><input type="radio"  value="1" name="rating" ><img src="${pageContext.request.contextPath}/css/images/third.png"></label>
+						<label><input type="radio"  value="2" name="rating" > <img src="${pageContext.request.contextPath}/css/images/first.png" ></label>
+						<label><input type="radio"  value="3" name="rating"> <img src="${pageContext.request.contextPath}/css/images/second.png"></label>
+						<label><input type="radio"  value="4" name="rating"><img src="${pageContext.request.contextPath}/css/images/first.png" ></label>
+						<label><input type="radio"  value="5" name="rating" ><img src="${pageContext.request.contextPath}/css/images/third.png" ></label>
+						<input type="text" placeholder="Enter your comment here" name="comment"/>
+						<input class="button" type="submit" value="Post">
+					</form>
+				</div>
+				</c:when>
+				<c:otherwise>
+					<p> Please login to comment</p>
+				</c:otherwise>
+				</c:choose>
+			
+			<div class="comments"   modelAttribute="comments">
+				<c:forEach var="comm" items="${comments}">
+          	 		 <p>${comm.username}</p>
+          	 		 <p> ${comm.comment}</p>
+          	 		 <p> ${comm.date}</p>
+    			</c:forEach>
+			</div>
+			
+		
 	</span>
 </body>
 </html>

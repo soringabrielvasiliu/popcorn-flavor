@@ -17,7 +17,7 @@
     
      <span  modelAttribute="searchResultsMovies">
           <c:forEach var="movie" items="${searchResultsMovies}" varStatus="status">
-          	<p><a href="${pageContext.request.contextPath}/movie/${movie.idMovie}.html" >${movie.title}  ${movie.type}</a></p>   
+          	<p><a href="${pageContext.request.contextPath}/movie/${movie.idMovie}.html" >${movie.title}  ${movie.type} ${movie.beginYear}</a></p>   
     	</c:forEach>
     </span>
 

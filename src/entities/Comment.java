@@ -24,16 +24,16 @@ public class Comment implements java.io.Serializable {
 	private static final long serialVersionUID = -8208430615847213902L;
 	private Integer idComment;
 	private Integer idMovie;
-	private Integer idUser;
+	private String username;
 	private String comment;
 	private Date date;
 
 	public Comment() {
 	}
 
-	public Comment(Integer idMovie, Integer idUser, String comment, Date date) {
+	public Comment(Integer idMovie, String username, String comment, Date date) {
 		this.idMovie = idMovie;
-		this.idUser = idUser;
+		this.username = username;
 		this.comment = comment;
 		this.date = date;
 	}
@@ -59,13 +59,13 @@ public class Comment implements java.io.Serializable {
 		this.idMovie = idMovie;
 	}
 
-	@Column(name = "idUser")
-	public Integer getIdUser() {
-		return this.idUser;
+	@Column(name = "username")
+	public String getUsername() {
+		return this.username;
 	}
 
-	public void setIdUser(Integer idUser) {
-		this.idUser = idUser;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	@Column(name = "comment", length = 1000)

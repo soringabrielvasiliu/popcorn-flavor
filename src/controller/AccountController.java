@@ -13,7 +13,7 @@ public class AccountController {
 
 	private static User userSession = null;
 	private AccountModel accountModel = new AccountModel();
-	private static StringBuffer username = null;
+	static StringBuffer username = null;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(ModelMap modelMap) {
@@ -21,23 +21,12 @@ public class AccountController {
 		return "login";
 	}
 
-	@RequestMapping(value = "/header", method = RequestMethod.GET)
-	public String veryfyLogIn(ModelMap modelMap) {
-		if (userSession!= null) {
-			System.out.println("yeeeeeeeees");
-			modelMap.put("message", "yes");
-		} else {
-			System.out.println("Nooooooooooooooo");
-			modelMap.put("message", null);
-		}
-		return "header";
-	}
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@ModelAttribute(value = "u") User u, ModelMap modelMap,
 			HttpSession session) {
 		System.out.println(u.getUsername() + "\t" + u.getPassword());
 		if (accountModel.login(u.getUsername(), u.getPassword()) != null) {
-			session.setAttribute("username", username);
+			session.setAttribute("username", u.getUsername());
 			//userSession.setUsername(u.getUsername());
 			username = new StringBuffer(u.getUsername());
 			return "redirect:/homepage.html";

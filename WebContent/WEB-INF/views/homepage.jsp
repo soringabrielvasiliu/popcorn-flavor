@@ -12,6 +12,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <!-- bxSlider Javascript file -->
     <script src="${pageContext.request.contextPath}/js/jquery.bxslider.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <!-- bxSlider CSS file -->
     <link href="${pageContext.request.contextPath}/css/jquery.bxslider.css" rel="stylesheet" />
     
@@ -38,8 +39,8 @@
         </a>
       </div>
 
-      <form class="search-bar" action="${pageContext.request.contextPath}/find.html"  method="post" commandName="search-form">
-		<input class="search" type="text"  placeholder="Find Movies, TV Shows and Actors" name="searchName"/>
+      <form class="search-bar"  action="${pageContext.request.contextPath}/find.html"  method="post" commandName="search-form">
+		<input class="search" id="searchName" type="text"  placeholder="Find Movies, TV Shows and Actors" name="searchName"/>
 		<input class="button" type="submit" value="Search">
       </form>
         

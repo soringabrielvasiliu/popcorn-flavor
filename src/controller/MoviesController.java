@@ -78,7 +78,15 @@ public class MoviesController {
 		modelMap.put("mv", mm.getMovieById(idMovie));
 		modelMap.put("genre", mm.getMovieGenres(idMovie));
 		modelMap.put("cast", mm.getMovieCast(idMovie));
+		modelMap.put("comments", mm.getComment(idMovie));
 		return "movie";
+	}
+	
+	@RequestMapping(value = "/movie/{idMovie}", method = RequestMethod.POST)
+	public String insertComment(@ModelAttribute (value = "comment") String comment, @ModelAttribute (value = "rating") int rating, @PathVariable(value = "idMovie") int idMovie , ModelMap modelMap) {
+		mm.postComment(comment, idMovie , AccountController.username);
+		mm.updateRating( rating, idMovie);
+		return "redirect:{idMovie}.html";
 	}
 
 }

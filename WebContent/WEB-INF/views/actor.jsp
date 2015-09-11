@@ -109,10 +109,11 @@
 			
 			<div class="hisWork" modelAttribute="otherMovies">
 				<c:forEach var="m" items="${otherMovies}">
-          	 	<p> <a href="${pageContext.request.contextPath}/movie/${m.idMovie}.html" > ${m.title} </a> </p>
-          	 	<p><b>Role: </b> ${m.role} <b> Year:</b> ${m.year} </p> 
-    	</c:forEach>
-			</div>			
+          	 		<p> <a href="${pageContext.request.contextPath}/movie/${m.idMovie}.html" > ${m.title} </a> </p>
+          		 	<p><b>Role: </b> ${m.role} <b> Year:</b> ${m.year} </p> 
+    			</c:forEach>
+			</div>	
+			
 		</div>	
 	</span>
 </body>
