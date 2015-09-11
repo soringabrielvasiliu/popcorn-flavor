@@ -96,4 +96,30 @@ public class MoviesModel extends AbstractModel<Movie> {
 		queryUpdate.executeUpdate();
 		tx.commit();
 	}
+	
+	public void addToWatchlist(int idMovie, StringBuffer username) {
+		Session s = factory.openSession();
+		Transaction tx = s.beginTransaction();
+		System.out.println(idMovie + "\t" + username);
+		Watchlist w = new Watchlist(idMovie,  username.toString());
+		s.save(w);
+		tx.commit();
+	}
+	
+	public String verifyExistingWatchlist(int idMovie, StringBuffer username) {
+		String response = null;
+		int idWatchlist;
+		System.out.println(username + "username\t\t\t\tidmovie" + idMovie);
+		Session s = factory.openSession();
+		Query query = s.createQuery("from Watchlist where idMovie=:idMovie and username=:username");
+		query.setParameter("idMovie", idMovie);
+		query.setParameter("username", username.toString());
+		Watchlist w = (Watchlist) query.uniqueResult();
+		if (w != null )
+			response = null;
+		else
+			response = "you can add to watchlist";
+		System.out.println("response is " + response);
+		return response;
+	}
 }

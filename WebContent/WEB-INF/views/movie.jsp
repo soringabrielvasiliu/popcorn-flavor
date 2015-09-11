@@ -8,6 +8,14 @@
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
 <title>Popcorn Flavor | Movie</title>
 <link href="${pageContext.request.contextPath}/css/movie.css" rel="stylesheet" type="text/css">
+    <!-- jQuery library (served from Google) -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!-- bxSlider Javascript file -->
+    <script src="${pageContext.request.contextPath}/js/jquery.bxslider.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
+    <!-- bxSlider CSS file -->
+    <link href="${pageContext.request.contextPath}/css/jquery.bxslider.css" rel="stylesheet" />
+    
 </head>
 <body>
 	<span id="container"  modelAttribute="mv">
@@ -31,6 +39,16 @@
 			</footer>
 		</div>	
 		<div class="right-container">
+			<span modelAttribute="verifyWatchlist">
+				<c:choose>
+					<c:when test="${verifyWatchlist != null}">
+						<p><button id="Watchlist"> Watchlist</button></p>
+					</c:when>
+					<c:otherwise>
+						<p>This movie is already added to watchlist</p>
+					</c:otherwise>
+				</c:choose>	
+			</span>
 			<img src=${mv.img} alt="actor picture" class="page-picture">
 			<h1> More Info about ${mv.title} </h>
 			<h2> Overview </h2>

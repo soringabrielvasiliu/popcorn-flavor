@@ -72,13 +72,15 @@ public class MoviesController {
 	}
 
 	@RequestMapping(value = "/movie/{idMovie}", method = RequestMethod.GET)
-	public String getActorById(@PathVariable(value = "idMovie") int idMovie,
+	public String getMovieById(@PathVariable(value = "idMovie") int idMovie,
 			ModelMap modelMap) {
 		System.out.println(idMovie);
 		modelMap.put("mv", mm.getMovieById(idMovie));
 		modelMap.put("genre", mm.getMovieGenres(idMovie));
 		modelMap.put("cast", mm.getMovieCast(idMovie));
 		modelMap.put("comments", mm.getComment(idMovie));
+		//if (AccountController.username != null)
+			modelMap.put("verifyWatchlist", mm.verifyExistingWatchlist(idMovie,AccountController.username));
 		return "movie";
 	}
 	
@@ -88,5 +90,15 @@ public class MoviesController {
 		mm.updateRating( rating, idMovie);
 		return "redirect:{idMovie}.html";
 	}
+	
+	@RequestMapping(value = "/movie/{idMovie}/addToWatchlist", method = RequestMethod.GET)
+	public String addToWatchlist(@PathVariable(value = "idMovie") int idMovie,
+			ModelMap modelMap) {
+		System.out.println(idMovie);
+		if (AccountController.username != null)
+			mm.addToWatchlist(idMovie, AccountController.username);
+		return "movie";
+	}
+	
 
 }
