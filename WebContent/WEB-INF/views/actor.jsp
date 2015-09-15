@@ -8,6 +8,11 @@
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
 <title>Popcorn Flavor | Actor</title>
 <link href="${pageContext.request.contextPath}/css/actor.css" rel="stylesheet" type="text/css">
+   <!-- jQuery library (served from Google) -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!-- bxSlider Javascript file -->
+    <script src="${pageContext.request.contextPath}/js/jquery.bxslider.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
 </head>
 <body>
 	<span id="actor-container" modelAttribute="mv">
@@ -77,6 +82,16 @@
 		</div>
 		
 		<div class="content-container">
+		<span modelAttribute="verifyActorPref">
+				<c:choose>
+					<c:when test="${verifyActorPref != null}">
+						<p><button id="ActorPref"> Add to Preferences</button></p>
+					</c:when>
+					<c:otherwise>
+						<p>This actor is already added to your preferences</p>
+					</c:otherwise>
+				</c:choose>	
+			</span>
 		
 			<c:if test="${mv.img == null && mv.dateBirth==null && mv.dateDeath == null && mv.nickname == null && mv.height == null && mv.biography ==null}">
 				<p>There is no information about this actor</p>

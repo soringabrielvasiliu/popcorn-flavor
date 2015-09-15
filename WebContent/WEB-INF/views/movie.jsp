@@ -49,6 +49,16 @@
 					</c:otherwise>
 				</c:choose>	
 			</span>
+			<span modelAttribute="verifyMoviePref">
+				<c:choose>
+					<c:when test="${verifyMoviePref != null}">
+						<p><button id="MoviePref"> Add to Preferences</button></p>
+					</c:when>
+					<c:otherwise>
+						<p>This movie is already added to your preferences</p>
+					</c:otherwise>
+				</c:choose>	
+			</span>
 			<img src=${mv.img} alt="actor picture" class="page-picture">
 			<h1> More Info about ${mv.title} </h>
 			<h2> Overview </h2>
@@ -82,16 +92,27 @@
     		<c:choose>
 				<c:when test="${sessionScope.username != null}">
 				
-		    	<div class="rating-and-comment">
-					<form method ="post" commandName="yourComment" >
-						<label><input type="radio"  value="1" name="rating" ><img src="${pageContext.request.contextPath}/css/images/third.png"></label>
-						<label><input type="radio"  value="2" name="rating" > <img src="${pageContext.request.contextPath}/css/images/first.png" ></label>
-						<label><input type="radio"  value="3" name="rating"> <img src="${pageContext.request.contextPath}/css/images/second.png"></label>
-						<label><input type="radio"  value="4" name="rating"><img src="${pageContext.request.contextPath}/css/images/first.png" ></label>
-						<label><input type="radio"  value="5" name="rating" ><img src="${pageContext.request.contextPath}/css/images/third.png" ></label>
-						<input type="text" placeholder="Enter your comment here" name="comment"/>
-						<input class="button" type="submit" value="Post">
-					</form>
+		    	<div class="rating-and-comment" modelAttribute="verifyRating">
+		    		<c:choose>
+		    			<c:when test="${verifyRating != null}">
+			    			<form method ="post" commandName="yourComment" >
+								<label><input type="radio"  value="1" name="rating" ><img src="${pageContext.request.contextPath}/css/images/third.png"></label>
+								<label><input type="radio"  value="2" name="rating" > <img src="${pageContext.request.contextPath}/css/images/first.png" ></label>
+								<label><input type="radio"  value="3" name="rating"> <img src="${pageContext.request.contextPath}/css/images/second.png"></label>
+								<label><input type="radio"  value="4" name="rating"><img src="${pageContext.request.contextPath}/css/images/first.png" ></label>
+								<label><input type="radio"  value="5" name="rating" ><img src="${pageContext.request.contextPath}/css/images/third.png" ></label>
+								<input type="text" placeholder="Enter your comment here" name="comment"/>
+								<input class="button" type="submit" value="Post">
+							</form>
+						</c:when>
+						<c:otherwise>
+							<form method ="post" commandName="yourComment" >
+								<input type="text" placeholder="Enter your comment here" name="comment"/>
+								<input class="button" type="submit" value="Post" id="commWithoutRating">
+							</form>
+						</c:otherwise>
+						</c:choose>
+					    		
 				</div>
 				</c:when>
 				<c:otherwise>

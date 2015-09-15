@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import controller.AccountController;
 import entities.*;
 
 public class MoviesModel extends AbstractModel<Movie> {
@@ -61,16 +62,28 @@ public class MoviesModel extends AbstractModel<Movie> {
 		} 
 	}
 	
-	public void postComment(String c, int idMovie, StringBuffer username) {
-		//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	public void postCommentWithoutRating(String c, int idMovie, StringBuffer username) {
 		Date date = new Date();
 		Session s = factory.openSession();
 		Transaction tx = s.beginTransaction();
-		Comment comm = new Comment(idMovie,  username.toString() , c, date);
+		Comment comm = new Comment(idMovie,  username.toString(), c, date, "null");
 		s.save(comm);
 		tx.commit();
+		s.close();
 
 	}
+	
+	public void postCommentWithtRating(String c, int idMovie, StringBuffer username, String rating) {
+		Date date = new Date();
+		Session s = factory.openSession();
+		Transaction tx = s.beginTransaction();
+		Comment comm = new Comment(idMovie,  username.toString(), c, date, rating);
+		s.save(comm);
+		tx.commit();
+		s.close();
+
+	}
+	
 	public List<Comment> getComment(int idMovie) {
 		Session s = factory.openSession();
 		Query query = s.createQuery("from Comment where idMovie= :idMovie");
@@ -86,9 +99,7 @@ public class MoviesModel extends AbstractModel<Movie> {
 		query.setParameter("idMovie", idMovie);
 		Movie m = (Movie) query.uniqueResult();
 		m.setTotalVoters(m.getTotalVoters() + 1);
-		System.out.println(m.getTotalVoters());
 		m.setTotalRating((m.getTotalRating() + rating));
-		System.out.println(m.getTotalRating());
 		Query queryUpdate = s.createQuery("update Movie set totalRating=:totalRating , totalVoters=:totalVoters where idMovie=:idMovie");
 		queryUpdate.setParameter("totalRating", m.getTotalRating());
 		queryUpdate.setParameter("totalVoters", m.getTotalVoters());
@@ -100,7 +111,6 @@ public class MoviesModel extends AbstractModel<Movie> {
 	public void addToWatchlist(int idMovie, StringBuffer username) {
 		Session s = factory.openSession();
 		Transaction tx = s.beginTransaction();
-		System.out.println(idMovie + "\t" + username);
 		Watchlist w = new Watchlist(idMovie,  username.toString());
 		s.save(w);
 		tx.commit();
@@ -109,7 +119,6 @@ public class MoviesModel extends AbstractModel<Movie> {
 	public String verifyExistingWatchlist(int idMovie, StringBuffer username) {
 		String response = null;
 		int idWatchlist;
-		System.out.println(username + "username\t\t\t\tidmovie" + idMovie);
 		Session s = factory.openSession();
 		Query query = s.createQuery("from Watchlist where idMovie=:idMovie and username=:username");
 		query.setParameter("idMovie", idMovie);
@@ -119,7 +128,51 @@ public class MoviesModel extends AbstractModel<Movie> {
 			response = null;
 		else
 			response = "you can add to watchlist";
-		System.out.println("response is " + response);
+		return response;
+	}
+	
+	public String verifyExistingMoviePref(int idMovie, StringBuffer username) {
+		String response = null;
+		Session s = factory.openSession();
+		Query query = s.createQuery("from MoviePref where idMovie=:idMovie and username=:username");
+		query.setParameter("idMovie", idMovie);
+		query.setParameter("username", username.toString());
+		MoviePref mp = (MoviePref) query.uniqueResult();
+		if (mp != null )
+			response = null;
+		else
+			response = "you can add to preferences";
+		return response;
+	}
+	
+	public void addToMoviePref (int idMovie, StringBuffer username) {
+		Session s = factory.openSession();
+		Transaction tx = s.beginTransaction();
+		MoviePref mp = new MoviePref(idMovie,  username.toString());
+		s.save(mp);
+		tx.commit();
+	}
+	
+	public String  verifyExistingRating(int idMovie,StringBuffer username) {
+		String response = null;
+		Session s = factory.openSession();
+		Query query = s.createQuery("Select rating from Comment where idMovie=:idMovie and username=:username");
+		query.setParameter("idMovie", idMovie);
+		query.setParameter("username", username.toString());
+		List<String> l = (List<String>) query.list();
+		if (l == null) return "you can add rate";
+		else {
+			int ok = 0;
+			for ( String c: l) {
+				if (c.equals("null")) {
+					ok++;
+				}
+			}
+			if (l.size() == ok)
+				response = "you can add rate";
+			else
+				response = null;
+		}
 		return response;
 	}
 }

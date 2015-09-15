@@ -3,10 +3,13 @@ package controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
+
 import entities.*;
 import model.*;
 
@@ -79,16 +82,33 @@ public class MoviesController {
 		modelMap.put("genre", mm.getMovieGenres(idMovie));
 		modelMap.put("cast", mm.getMovieCast(idMovie));
 		modelMap.put("comments", mm.getComment(idMovie));
-		//if (AccountController.username != null)
+		if (AccountController.username != null) 
+			modelMap.put("verifyRating", mm.verifyExistingRating(idMovie,AccountController.username));
 			modelMap.put("verifyWatchlist", mm.verifyExistingWatchlist(idMovie,AccountController.username));
+			modelMap.put("verifyMoviePref", mm.verifyExistingMoviePref(idMovie,AccountController.username));
 		return "movie";
 	}
 	
 	@RequestMapping(value = "/movie/{idMovie}", method = RequestMethod.POST)
-	public String insertComment(@ModelAttribute (value = "comment") String comment, @ModelAttribute (value = "rating") int rating, @PathVariable(value = "idMovie") int idMovie , ModelMap modelMap) {
-		mm.postComment(comment, idMovie , AccountController.username);
-		mm.updateRating( rating, idMovie);
-		return "redirect:{idMovie}.html";
+	public String insertComment( @PathVariable(value = "idMovie") int idMovie , @ModelAttribute (value = "comment") String comment, @ModelAttribute (value = "rating") String rating, ModelMap modelMap,  HttpSession session) {
+		String verifyRating = null;
+		if (AccountController.username != null) {
+			 verifyRating = mm.verifyExistingRating(idMovie,AccountController.username);
+			if (verifyRating == null) {
+				mm.postCommentWithoutRating(comment, idMovie , AccountController.username);
+				return "redirect:/movie/{idMovie}.html";
+			}
+			else
+			{
+				mm.postCommentWithtRating(comment, idMovie , AccountController.username, rating);
+				int intRating = Integer.parseInt(rating);
+				mm.updateRating( intRating, idMovie);
+				return "redirect:/movie/{idMovie}.html";
+			}			
+		} else
+			return "redirect:/account/login.html";
+	
+		
 	}
 	
 	@RequestMapping(value = "/movie/{idMovie}/addToWatchlist", method = RequestMethod.GET)
@@ -97,6 +117,15 @@ public class MoviesController {
 		System.out.println(idMovie);
 		if (AccountController.username != null)
 			mm.addToWatchlist(idMovie, AccountController.username);
+		return "movie";
+	}
+	
+	@RequestMapping(value = "/movie/{idMovie}/addToPref", method = RequestMethod.GET)
+	public String addToMoviePref(@PathVariable(value = "idMovie") int idMovie,
+			ModelMap modelMap) {
+		System.out.println(idMovie);
+		if (AccountController.username != null)
+			mm.addToMoviePref(idMovie, AccountController.username);
 		return "movie";
 	}
 	

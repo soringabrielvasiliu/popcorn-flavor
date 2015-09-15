@@ -27,16 +27,25 @@ public class Comment implements java.io.Serializable {
 	private String username;
 	private String comment;
 	private Date date;
+	private String rating;
 
 	public Comment() {
 	}
 
-	public Comment(Integer idMovie, String username, String comment, Date date) {
+	public Comment(Integer idMovie, String username, String comment, Date date, String rating) {
 		this.idMovie = idMovie;
 		this.username = username;
 		this.comment = comment;
 		this.date = date;
+		this.rating = rating;
 	}
+	
+//	public Comment(Integer idMovie, String username, String comment, Date date) {
+//		this.idMovie = idMovie;
+//		this.username = username;
+//		this.comment = comment;
+//		this.date = date;
+//	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -85,6 +94,15 @@ public class Comment implements java.io.Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	@Column(name = "rating", length = 1)
+	public String getRating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
 	}
 
 }

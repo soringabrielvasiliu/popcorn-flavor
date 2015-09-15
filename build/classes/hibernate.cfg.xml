@@ -27,5 +27,8 @@
   <mapping class="entities.OtherMovies"/>
   <mapping class="entities.MovieCast"/>
   <mapping class="entities.Watchlist"/>
+  <mapping class="entities.MoviePref"/>
+  <mapping class="entities.ActorPref"/>
+  <mapping class="entities.GenrePref"/>
  </session-factory>
 </hibernate-configuration>

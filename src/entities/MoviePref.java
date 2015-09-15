@@ -9,37 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Watchlist", catalog = "PopcornFlavor")
-public class Watchlist implements java.io.Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 691184672001249235L;
-	private int idWatchlist;
+@Table(name = "moviePref", catalog = "PopcornFlavor")
+public class MoviePref {
+	private int idMoviePref;
 	private int idMovie;
 	private String username;
-
-	public Watchlist() {
-
+	
+	public MoviePref() {
+		
 	}
-
-	public Watchlist(int idMovie, String username) {
-		this.idMovie = idMovie;
-		this.username = username;
+	
+	public MoviePref(int idMovie, String username) {
+		this.setIdMovie(idMovie);
+		this.setUsername(username);
 	}
-
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "idWatchlist", unique = true, nullable = false)
-	public int getIdWatchlist() {
-		return idWatchlist;
-	}
-
-	public void setIdWatchlist(int idWatchlist) {
-		this.idWatchlist = idWatchlist;
-	}
-
 	@Column(name = "idMovie", unique = true, nullable = false)
 	public int getIdMovie() {
 		return idMovie;
@@ -47,6 +30,16 @@ public class Watchlist implements java.io.Serializable {
 
 	public void setIdMovie(int idMovie) {
 		this.idMovie = idMovie;
+	}
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "idMoviePref", unique = true, nullable = false)
+	public int getIdMoviePref() {
+		return idMoviePref;
+	}
+	
+	public void setIdMoviePref(int idMoviePref) {
+		this.idMoviePref = idMoviePref;
 	}
 
 	@Column(name = "username", unique = true, length = 45)
@@ -57,5 +50,7 @@ public class Watchlist implements java.io.Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	
 
 }
