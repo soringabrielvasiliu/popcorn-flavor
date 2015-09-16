@@ -5,14 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
-<title>Popcorn Flavor | Actor</title>
 <link href="${pageContext.request.contextPath}/css/actor.css" rel="stylesheet" type="text/css">
-   <!-- jQuery library (served from Google) -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <!-- bxSlider Javascript file -->
-    <script src="${pageContext.request.contextPath}/js/jquery.bxslider.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/main.js"></script>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.bxslider.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/main.js"></script>
+<title>Popcorn Flavor | Actor</title>
 </head>
 <body>
 	<span id="actor-container" modelAttribute="mv">
@@ -42,7 +40,17 @@
 					<c:otherwise>
 						<h1>${mv.firstName}</h1>
 					</c:otherwise>
-				</c:choose>				
+				</c:choose>	
+				<span modelAttribute="verifyActorPref">
+					<c:choose>
+						<c:when test="${verifyActorPref != null}">
+							<button id="ActorPref">Add to Preferences</button>
+						</c:when>
+						<c:otherwise>
+							<button id="remove-actorpref">Remove from Preferences</button>
+						</c:otherwise>
+					</c:choose>	
+				</span>			
 			</div>
 			
 			<form class="search-bar"  action="${pageContext.request.contextPath}/find.html" method="post" commandName="search-form" >
@@ -71,7 +79,7 @@
                 </ul>
               </li>     				
             </ul>
-          </nav>
+          	</nav>
 
   			<div class="footer-links">
 		        <a href="#">About</a>
@@ -82,22 +90,13 @@
 		</div>
 		
 		<div class="content-container">
-		<span modelAttribute="verifyActorPref">
-				<c:choose>
-					<c:when test="${verifyActorPref != null}">
-						<p><button id="ActorPref"> Add to Preferences</button></p>
-					</c:when>
-					<c:otherwise>
-						<p>This actor is already added to your preferences</p>
-					</c:otherwise>
-				</c:choose>	
-			</span>
 		
 			<c:if test="${mv.img == null && mv.dateBirth==null && mv.dateDeath == null && mv.nickname == null && mv.height == null && mv.biography ==null}">
 				<p>There is no information about this actor</p>
 			</c:if>
+			
 			<c:if test="${mv.img != null}">
-				<img class="actor-picture" src="${mv.img}" alt="actor picture">
+				<img class="actor-picture" src="${mv.img}">
 			</c:if>
 					
 			<div class="overview">	
@@ -124,11 +123,10 @@
 			
 			<div class="hisWork" modelAttribute="otherMovies">
 				<c:forEach var="m" items="${otherMovies}">
-          	 		<p> <a href="${pageContext.request.contextPath}/movie/${m.idMovie}.html" > ${m.title} </a> </p>
-          		 	<p><b>Role: </b> ${m.role} <b> Year:</b> ${m.year} </p> 
+	          	 	<p> <a href="${pageContext.request.contextPath}/movie/${m.idMovie}.html" > ${m.title} </a> </p>
+	          	 	<p><b>Role: </b> ${m.role} <b> Year:</b> ${m.year} </p> 
     			</c:forEach>
-			</div>	
-			
+			</div>			
 		</div>	
 	</span>
 </body>

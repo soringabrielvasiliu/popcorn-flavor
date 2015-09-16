@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="${pageContext.request.contextPath}/css/profile.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="${pageContext.request.contextPath}/css/profile.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
 <title>PopcornFlavor | Profile</title>
 </head>
@@ -16,7 +17,7 @@
 			<div class="logout-edit">
 				<a href="${pageContext.request.contextPath}/homepage.html">HOME</a>
 				<a href="${pageContext.request.contextPath}/account/logout.html">LOGOUT</a>
-  				<a href="${pageContext.request.contextPath}/account/edit.html">EDIT PROFILE</a>
+  				<a href="${pageContext.request.contextPath}/account/editProfile.html">EDIT PROFILE</a>
 			</div>
 			<a href="${pageContext.request.contextPath}/homepage.html">
 				<img src="${pageContext.request.contextPath}/resources/images/pop3.png" alt="logo"/>
@@ -34,10 +35,10 @@
 			</c:choose>
 			<h2>Mail: ${u.mail}</h2>		
 		</div>
-		
+
 		<form class="search-bar" action="${pageContext.request.contextPath}/find.html" method="post" commandName="search-form">
- 			         <input class="search" type="text"  placeholder="Find Movies, TV Shows and Actors" name="searchName"/>
- 			         <input class="button" type="submit" value="Search">
+	         <input class="search" type="text"  placeholder="Find Movies, TV Shows and Actors" name="searchName"/>
+	         <input class="button" type="submit" value="Search">
  		</form>
  			
  		<nav class="menu">
@@ -73,19 +74,69 @@
 	
 	<div class="content-container">
 		<h1 class="title">${u.username}'s Activity</h1> 
+		
 		<h1>Your Ratings</h1>
-		<h2>You haven't rated any movie</h2>
+		<div class="ratings" modelAttribute="rating">
+			<c:choose>
+				<c:when test="${fn:length(rating) > 0}">
+					<c:forEach var="m" items="${rating}">
+						<c:if test="${m.rating != 'null'}">
+							<div class="movie-rating">
+								<a href="${pageContext.request.contextPath}/movie/${m.idMovie}.html">${m.title}</a>
+								<c:forEach var="i" begin="1" end="${m.rating}">
+									<img class="pop" src="${pageContext.request.contextPath}/resources/images/second.png">
+								</c:forEach>
+							</div>
+						</c:if>			
+			    	</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<h2>You haven't rated any movie</h2>
+				</c:otherwise>
+			</c:choose>
+		</div>	
 		<hr>
+		
 		<h1>Your Watchlist</h1>
-		<h2>Your Watchlist is empty</h2>
+		<div class="watchlist" modelAttribute="watchlist">
+			<c:choose>
+				<c:when test="${fn:length(watchlist) > 0}">
+					<c:forEach var="m" items="${watchlist}">
+						<a href="${pageContext.request.contextPath}/movie/${m.idMovie}.html" class="movie-watchlist">${m.title}</a>			
+			    	</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<h2>Your Watchlist is empty</h2>
+				</c:otherwise>
+			</c:choose>
+		</div>
 		<hr>
+		
 		<h1>Your Latest Comments</h1>
-		<h2>You haven't commented at any movie</h2>
+		<div class="comments" modelAttribute="rating">
+			<c:choose>
+				<c:when test="${fn:length(rating) > 0}">
+					<c:forEach var="m" items="${rating}">
+						<c:if test="${m.comment != 'null'}">
+							<p><a href="${pageContext.request.contextPath}/movie/${m.idMovie}.html">${m.title}</a> - ${m.comment}</p>
+						</c:if>			
+			    	</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<h2>You haven't commented at any movie</h2>
+				</c:otherwise>
+			</c:choose>
+		</div>
 		<hr>
-		<h1>Recently Viewed</h1>
+		
+		<h1>Recently Viewed</h1> <!-- last 8 visited pages -->
 		<h2>There is no recent activity on the website</h2>
+		
 	</div>
 </span>
 
 </body>
 </html>
+
+
+

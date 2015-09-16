@@ -4,18 +4,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>PopcornFlavor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
     <link href="${pageContext.request.contextPath}/css/homepage.css" rel="stylesheet" type="text/css">
-    
-    <!-- jQuery library (served from Google) -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <!-- bxSlider Javascript file -->
     <script src="${pageContext.request.contextPath}/js/jquery.bxslider.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/main.js"></script>
-    <!-- bxSlider CSS file -->
     <link href="${pageContext.request.contextPath}/css/jquery.bxslider.css" rel="stylesheet" />
-    
+    <title>PopcornFlavor</title>
   </head>
   
   <body>
@@ -39,8 +34,8 @@
         </a>
       </div>
 
-      <form class="search-bar"  action="${pageContext.request.contextPath}/find.html"  method="post" commandName="search-form">
-		<input class="search" id="searchName" type="text"  placeholder="Find Movies, TV Shows and Actors" name="searchName"/>
+      <form class="search-bar" action="${pageContext.request.contextPath}/find.html"  method="post" commandName="search-form">
+		<input class="search" type="text"  placeholder="Find Movies, TV Shows and Actors" name="searchName"/>
 		<input class="button" type="submit" value="Search">
       </form>
         

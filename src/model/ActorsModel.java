@@ -58,5 +58,15 @@ public class ActorsModel extends AbstractModel<Actor>{
 		s.save(ap);
 		tx.commit();
 	}
+	
+	public void removeFromActorPref (int idActor, StringBuffer username) {
+		Session s = factory.openSession();
+		Transaction tx = s.beginTransaction();
+		Query query = s.createQuery("delete from ActorPref where idActor=:idActor and username=:username");
+		query.setParameter("idActor", idActor);
+		query.setParameter("username", username.toString());
+		int result = (int) query.executeUpdate();
+		tx.commit();
+	}
 
 }

@@ -32,4 +32,15 @@ public class ActorsController {
 			am.addToActorPref(idActor, AccountController.username);
 		return "actor";
 	}
+	
+	@RequestMapping(value = "/actor/{idActor}/removeFromPref", method = RequestMethod.GET)
+	public String removeFromActorPref(@PathVariable(value = "idActor") int idActor,
+			ModelMap modelMap) {
+		System.out.println(idActor);
+		if (AccountController.username != null)
+			am.removeFromActorPref(idActor, AccountController.username);
+		else 
+			return "redirect:login.html";
+		return "actor";
+	}
 }

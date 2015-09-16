@@ -22,8 +22,8 @@ public class Comment implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8208430615847213902L;
-	private Integer idComment;
-	private Integer idMovie;
+	private int idComment;
+	private int idMovie;
 	private String username;
 	private String comment;
 	private Date date;
@@ -51,20 +51,20 @@ public class Comment implements java.io.Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idComment", unique = true, nullable = false)
-	public Integer getIdComment() {
+	public int getIdComment() {
 		return this.idComment;
 	}
 
-	public void setIdComment(Integer idComment) {
+	public void setIdComment(int idComment) {
 		this.idComment = idComment;
 	}
 
 	@Column(name = "idMovie")
-	public Integer getIdMovie() {
+	public int getIdMovie() {
 		return this.idMovie;
 	}
 
-	public void setIdMovie(Integer idMovie) {
+	public void setIdMovie(int idMovie) {
 		this.idMovie = idMovie;
 	}
 

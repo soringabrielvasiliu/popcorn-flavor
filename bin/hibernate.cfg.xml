@@ -24,7 +24,11 @@
   <mapping class="entities.MovieActor"/>
   <mapping class="entities.MovieGenre"/>
   <mapping class="entities.User"/>
-  <mapping class="entities.MovieActorId"/>
-  <mapping class="entities.MovieGenreId"/>
+  <mapping class="entities.OtherMovies"/>
+  <mapping class="entities.MovieCast"/>
+  <mapping class="entities.Watchlist"/>
+  <mapping class="entities.MoviePref"/>
+  <mapping class="entities.ActorPref"/>
+  <mapping class="entities.GenrePref"/>
  </session-factory>
 </hibernate-configuration>

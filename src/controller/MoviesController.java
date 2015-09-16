@@ -77,7 +77,6 @@ public class MoviesController {
 	@RequestMapping(value = "/movie/{idMovie}", method = RequestMethod.GET)
 	public String getMovieById(@PathVariable(value = "idMovie") int idMovie,
 			ModelMap modelMap) {
-		System.out.println(idMovie);
 		modelMap.put("mv", mm.getMovieById(idMovie));
 		modelMap.put("genre", mm.getMovieGenres(idMovie));
 		modelMap.put("cast", mm.getMovieCast(idMovie));
@@ -107,14 +106,11 @@ public class MoviesController {
 			}			
 		} else
 			return "redirect:/account/login.html";
-	
-		
 	}
 	
 	@RequestMapping(value = "/movie/{idMovie}/addToWatchlist", method = RequestMethod.GET)
 	public String addToWatchlist(@PathVariable(value = "idMovie") int idMovie,
 			ModelMap modelMap) {
-		System.out.println(idMovie);
 		if (AccountController.username != null)
 			mm.addToWatchlist(idMovie, AccountController.username);
 		return "movie";
@@ -129,5 +125,26 @@ public class MoviesController {
 		return "movie";
 	}
 	
-
+	@RequestMapping(value = "/movie/{idMovie}/removeFromWatchlist", method = RequestMethod.GET)
+	public String removeFromWatchlist(@PathVariable(value = "idMovie") int idMovie,
+			ModelMap modelMap) {
+		if (AccountController.username != null) {
+			mm.removeFromWatchlist(idMovie, AccountController.username);
+		}
+		else
+			return "redirect:/account/login.html";
+		return "movie";
+	}
+	
+	@RequestMapping(value = "/movie/{idMovie}/removeFromPref", method = RequestMethod.GET)
+	public String removeFromMoviePref(@PathVariable(value = "idMovie") int idMovie,
+			ModelMap modelMap) {
+		System.out.println(idMovie);
+		if (AccountController.username != null)
+			mm.removeFromMoviePref(idMovie, AccountController.username);
+		else
+			return "redirect:/account/login.html";
+		return "movie";
+	}
 }
+

@@ -106,6 +106,7 @@ public class MoviesModel extends AbstractModel<Movie> {
 		queryUpdate.setParameter("idMovie", idMovie);
 		queryUpdate.executeUpdate();
 		tx.commit();
+		s.close();
 	}
 	
 	public void addToWatchlist(int idMovie, StringBuffer username) {
@@ -113,6 +114,16 @@ public class MoviesModel extends AbstractModel<Movie> {
 		Transaction tx = s.beginTransaction();
 		Watchlist w = new Watchlist(idMovie,  username.toString());
 		s.save(w);
+		tx.commit();
+	}
+	
+	public void removeFromWatchlist(int idMovie, StringBuffer username) {
+		Session s = factory.openSession();
+		Transaction tx = s.beginTransaction();
+		Query query = s.createQuery("delete from Watchlist where idMovie=:idMovie and username=:username");
+		query.setParameter("idMovie", idMovie);
+		query.setParameter("username", username.toString());
+		int result = (int) query.executeUpdate();
 		tx.commit();
 	}
 	
@@ -153,6 +164,16 @@ public class MoviesModel extends AbstractModel<Movie> {
 		tx.commit();
 	}
 	
+	public void removeFromMoviePref (int idMovie, StringBuffer username) {
+		Session s = factory.openSession();
+		Transaction tx = s.beginTransaction();
+		Query query = s.createQuery("delete from MoviePref where idMovie=:idMovie and username=:username");
+		query.setParameter("idMovie", idMovie);
+		query.setParameter("username", username.toString());
+		int result = (int) query.executeUpdate();
+		tx.commit();
+	}
+	
 	public String  verifyExistingRating(int idMovie,StringBuffer username) {
 		String response = null;
 		Session s = factory.openSession();
@@ -175,4 +196,39 @@ public class MoviesModel extends AbstractModel<Movie> {
 		}
 		return response;
 	}
+	
+	public List getWatchlist(StringBuffer username) {
+		Session s = factory.openSession();
+		List<UserWatchlist> List = new ArrayList<>();
+		Query query = s
+				.createQuery("select m.idMovie, m.title from Movie m , Watchlist w where w.idMovie=m.idMovie and w.username =:username");
+		query.setParameter("username", username.toString());
+		List<Object[]> list = (List<Object[]>) query.list();
+		
+		for(Object[] o : list) {
+			String idMovie = String.valueOf(o[0]);
+			String title = String.valueOf(o[1]);
+			List.add(new UserWatchlist(idMovie, title));
+		}		
+		return List;
+	}
+	
+	public List getRatingProfile(StringBuffer username) {
+		Session s = factory.openSession();
+		List<RatingComment> List = new ArrayList<>();
+		Query query = s
+				.createQuery("select m.idMovie, m.title, c.comment, c.date, c.rating from Movie m , Comment c where c.idMovie=  m.idMovie and c.username =:username");
+		query.setParameter("username", username.toString());
+		List<Object[]> list = (List<Object[]>) query.list();
+		for (Object[] o : list) {
+			String idMovie = String.valueOf(o[0]);
+			String title = String.valueOf(o[1]);
+			String comment = String.valueOf(o[2]);
+			String date = String.valueOf(o[3]);
+			String rating = String.valueOf(o[4]);
+			List.add(new RatingComment(idMovie, title, comment, date, rating));
+	}
+		return List;
+	}
+
 }

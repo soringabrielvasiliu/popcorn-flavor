@@ -1,9 +1,11 @@
 package controller;
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.*;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
 import entities.*;
 import model.*;
 
@@ -13,6 +15,7 @@ public class AccountController {
 
 	private static User userSession = null;
 	private AccountModel accountModel = new AccountModel();
+	private MoviesModel mm = new MoviesModel();
 	static StringBuffer username = null;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -46,8 +49,10 @@ public class AccountController {
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String profile(ModelMap modelMap) {
 		if (username!= null) {
-			User u = accountModel.profile(username );
+			User u = accountModel.profile(username);
 			modelMap.addAttribute("u", u);
+			modelMap.addAttribute("rating", mm.getRatingProfile(username));
+			modelMap.addAttribute("watchlist", mm.getWatchlist(username));
 		} else
 			return "redirect:/account/login.html";
 

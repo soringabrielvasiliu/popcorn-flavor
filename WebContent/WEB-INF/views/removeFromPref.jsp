@@ -4,15 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
 </head>
 <body>
-	<footer>
-	<div class="footer_links">
-        <a href="#">About</a>
-        <a href="#">Help</a>
-        <a href="#">Facebook</a>
-        <a href="#">Twitter</a>
-	</div>
-	</footer>
+
 </body>
 </html>

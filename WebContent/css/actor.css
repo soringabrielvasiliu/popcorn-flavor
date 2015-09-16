@@ -193,7 +193,7 @@ body #actor-container .content-container {
   color: #282828;
   box-sizing: border-box;
   padding: 50px 100px;
-  background-color: #d9d9d9;
+/*  background-color: #d9d9d9; */
 }
 body #actor-container .content-container .overview {
   height: 300px;
